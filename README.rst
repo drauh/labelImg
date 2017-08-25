@@ -22,23 +22,21 @@ by `ImageNet <http://www.image-net.org/>`__.
 
 `Watch a demo video <https://youtu.be/p0nR2YsCY_U>`__
 
-Installation
-------------------
+Cette version a été modifiée pour les besoins du projet Medvision.
 
-Download prebuilt binaries
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Dans le dossier medvision, il doit y avoir:
+- MedVisionDrive
+- MedVisionAnnotations
+- etc.
 
--  `Windows & Linux <https://tzutalin.github.io/labelImg/>`__
+A cet endroit,
 
--  macOS. Binaries for macOS are not yet available. Help would be appreciated. At present, it must be `built from source <#macos>`__.
-
-Build from source
-~~~~~~~~~~~~~~~~~
-
-Linux/Ubuntu/Mac requires at least `Python
-2.6 <https://www.python.org/getit/>`__ and has been tested with `PyQt
-4.8 <https://www.riverbankcomputing.com/software/pyqt/intro>`__.
-
+.. code::
+        git clone https://github.com/eltonio450/labelImg
+        cd labelImg
+        
+        
+Puis, au choix:
 
 Ubuntu Linux
 ^^^^^^^^^^^^
@@ -50,7 +48,7 @@ Python 2 + Qt4
     sudo pip install lxml
     make qt4py2
     python labelImg.py
-    python labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
+
 
 Python 3 + Qt5
 
@@ -60,7 +58,6 @@ Python 3 + Qt5
     sudo pip3 install lxml
     make qt5py3
     python3 labelImg.py
-    python3 labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
 
 macOS
 ^^^^
@@ -72,11 +69,8 @@ Python 2 + Qt4
     brew install libxml2
     make qt4py2
     python labelImg.py
-    python  labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
 
 
-Windows
-^^^^^^^
 
 Download and setup `Python 2.6 or
 later <https://www.python.org/downloads/windows/>`__,
