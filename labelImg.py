@@ -1027,9 +1027,13 @@ class MainWindow(QMainWindow, WindowMixin):
         extensions = ['.jpeg', '.jpg', '.png', '.bmp']
         images = []
 
+        current_root = os.path.dirname(os.getcwd())
+        print(current_root)
         for root, dirs, files in os.walk(folderPath):
             for file in files:
-                root_bis = os.path.join('..', root.split('medvision/')[-1])
+                root_bis = ".." + str(root.split(current_root)[-1])
+                if not os.path.isdir('../MedVisionDrive'):
+                    raise Exception("You launched Labelimg from the wrong place.")
                 if file.lower().endswith(tuple(extensions)):
                     relativePath = os.path.join(root_bis, file)
                     path = ustr(os.path.abspath(relativePath))
