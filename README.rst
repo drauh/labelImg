@@ -25,13 +25,17 @@ by `ImageNet <http://www.image-net.org/>`__.
 Cette version a été modifiée pour les besoins du projet Medvision.
 
 Dans le dossier medvision, il doit y avoir:
-- MedVisionDrive
-- MedVisionAnnotations
-- etc.
+
+.. code::
+
+        MedVisionDrive/
+        MedVisionAnnotations/
+        etc.
 
 A cet endroit,
 
 .. code::
+
         git clone https://github.com/eltonio450/labelImg
         cd labelImg
         
