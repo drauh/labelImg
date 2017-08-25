@@ -1029,10 +1029,12 @@ class MainWindow(QMainWindow, WindowMixin):
 
         for root, dirs, files in os.walk(folderPath):
             for file in files:
+                root_bis = os.path.join('..', root.split('medvision/')[-1])
                 if file.lower().endswith(tuple(extensions)):
-                    relativePath = os.path.join(root, file)
+                    relativePath = os.path.join(root_bis, file)
                     path = ustr(os.path.abspath(relativePath))
-                    images.append(path)
+                    print("Relative path for this image: ", str(relativePath))
+                    images.append(relativePath)
         images.sort(key=lambda x: x.lower())
         return images
 
@@ -1244,7 +1246,8 @@ class MainWindow(QMainWindow, WindowMixin):
                                     '<p><b>%s</b></p>%s' % (title, message))
 
     def currentPath(self):
-        return os.path.dirname(self.filePath) if self.filePath else '.'
+        return '.'
+        #return os.path.dirname(self.filePath) if self.filePath else '.'
 
     def chooseColor1(self):
         color = self.colorDialog.getColor(self.lineColor, u'Choose line color',
