@@ -229,8 +229,7 @@ class MainWindow(QMainWindow, WindowMixin):
                         'space', 'verify', u'Verify Image')
 
         save = action('&Save', self.saveFile,
-                      'Ctrl+S', 'save', u'Save labels to file', enabled=False)
-
+                      'Ctrl+S', 'save', u'Save labels to file', enabled=True)
         saveAs = action('&Save As', self.saveFileAs,
                         'Ctrl+Shift+S', 'save-as', u'Save labels to a different file', enabled=False)
 
@@ -500,7 +499,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def setClean(self):
         self.dirty = False
-        self.actions.save.setEnabled(False)
+        self.actions.save.setEnabled(True)
         self.actions.create.setEnabled(True)
 
     def toggleActions(self, value=True):
@@ -1106,7 +1105,9 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def verifyImg(self, _value=False):
         # Proceding next image without dialog if having any label
-         if self.filePath is not None:
+        print("VerifyImg")
+        if self.filePath is not None:
+            print(self.filePath, " is not None")
             try:
                 self.labelFile.toggleVerify()
             except AttributeError:
@@ -1184,12 +1185,16 @@ class MainWindow(QMainWindow, WindowMixin):
             self.loadFile(filename)
 
     def saveFile(self, _value=False):
+        print("Saving image...")
         if self.defaultSaveDir is not None and len(ustr(self.defaultSaveDir)):
+            print("Everything is ready...")
             if self.filePath:
                 imgFileName = os.path.basename(self.filePath)
                 savedFileName = os.path.splitext(imgFileName)[0] + XML_EXT
                 savedPath = os.path.join(ustr(self.defaultSaveDir), savedFileName)
                 self._saveFile(savedPath)
+            else:
+                print("But self.filePath is None...", self.filePath)
         else:
             imgFileDir = os.path.dirname(self.filePath)
             imgFileName = os.path.basename(self.filePath)

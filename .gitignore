@@ -1,5 +1,7 @@
 icons/.DS_Store
 
+data/predefined_classes.txt
+
 resources.py
 
 .idea*
