@@ -74,10 +74,11 @@ class PascalVocWriter:
         segmented.text = '0'
         return top
 
-    def addBndBox(self, xmin, ymin, xmax, ymax, name, difficult):
+    def addBndBox(self, xmin, ymin, xmax, ymax, name, difficult, ligature):
         bndbox = {'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax}
         bndbox['name'] = name
         bndbox['difficult'] = difficult
+        bndbox['ligature'] = ligature
         self.boxlist.append(bndbox)
 
     def appendObjects(self, top):
@@ -99,7 +100,9 @@ class PascalVocWriter:
             else:
                 truncated.text = "0"
             difficult = SubElement(object_item, 'difficult')
-            difficult.text = str( bool(each_object['difficult']) & 1 )
+            difficult.text = str(bool(each_object['difficult']) & 1)
+            ligature = SubElement(object_item, 'ligature')
+            ligature.text = str(bool(each_object['ligature']) & 1)
             bndbox = SubElement(object_item, 'bndbox')
             xmin = SubElement(bndbox, 'xmin')
             xmin.text = str(each_object['xmin'])
@@ -141,13 +144,13 @@ class PascalVocReader:
     def getShapes(self):
         return self.shapes
 
-    def addShape(self, label, bndbox, difficult):
+    def addShape(self, label, bndbox, difficult, ligature):
         xmin = int(bndbox.find('xmin').text)
         ymin = int(bndbox.find('ymin').text)
         xmax = int(bndbox.find('xmax').text)
         ymax = int(bndbox.find('ymax').text)
         points = [(xmin, ymin), (xmax, ymin), (xmax, ymax), (xmin, ymax)]
-        self.shapes.append((label, points, None, None, difficult))
+        self.shapes.append((label, points, None, None, difficult, ligature))
 
     def parseXML(self):
         assert self.filepath.endswith(XML_EXT), "Unsupport file format"
@@ -168,5 +171,8 @@ class PascalVocReader:
             difficult = False
             if object_iter.find('difficult') is not None:
                 difficult = bool(int(object_iter.find('difficult').text))
-            self.addShape(label, bndbox, difficult)
+            ligature = False
+            if object_iter.find('ligature') is not None:
+                ligature = bool(int(object_iter.find('ligature').text))
+            self.addShape(label, bndbox, difficult, ligature)
         return True
